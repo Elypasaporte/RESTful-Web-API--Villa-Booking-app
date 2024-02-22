@@ -3,8 +3,8 @@
 
 <img class="d-block w-100" src="images/home/slide1.jpg" alt="">
 
-<hr/>
-<div class="row" style="--bs-gutter-x:0">
+<hr />
+@* <div class="row" style="--bs-gutter-x:0">
     @foreach(var villa in Model)
     {
         <div class="p-4 col-md-12 col-lg-6">
@@ -21,7 +21,7 @@
                 <div  class="col-12">
                     <div class="row pb-3 pt-2">
                         <div class= "col-4">
-                            <a href="" class="btn btn-success form-control btn-block">Book</a>
+                            <a  href="" class="btn btn-success form-control btn-block">Book</a>
                         </div>
                         <div class="col-4">
                             <span class="">Max Occupancy : @villa.Occupancy adults</span><br/>
@@ -41,5 +41,73 @@
         </div>
     }
 
+</div> *@
+<!-- Bootstrap modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Register or Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Please register or login to book.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="@Url.Action("Register", "Auth")" class="btn btn-primary">Register</a>
+                <a href="@Url.Action("Login", "Auth")" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="row" style="--bs-gutter-x:0">
+@foreach (var villa in Model)
+{
+    <div class="p-4 col-md-12 col-lg-6">
+        <div class="row" style="border-radius:20px; border: 1px solid #ffffff">
+            <div class="col-4">
+                <img class="d-block w-100" style="border-radius:20px;" src="@villa.ImageUrl" alt="First Slide">
+            </div>
+            <div class="col-8">
+                <p class="card-title text-warning" style="font-size: xx-large">@villa.Name</p>
+                <p class="card-text">
+                    @((MarkupString)villa.Details)
+                </p>
+            </div>
+            <div class="col-12">
+                <div class="row pb-3 pt-2">
+                    <div class="col-4">
+                        <button onclick="showLoginModal()" class="btn btn-success form-control btn-block">Book</button>
+                    </div>
+                    <div class="col-4">
+                        <span>Max Occupancy: @villa.Occupancy adults</span><br />
+                        <span>Villa Size: @villa.Sqft sqft</span><br />
+                    </div>
+                    <div class="col-4">
+                        <span class="text-warning float-end font-weight-bold pt-1" style="font-size: 25px;">
+                            USD <span style="border-bottom: 1px solid #ff6a00">@villa.Rate.ToString("c")</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
+@* JavaScript to show login modal *@
+    <script>
+        function showLoginModal() {
+            // Check if the user is authenticated
+            var isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+
+            // If not authenticated, show the login modal
+            if (!isAuthenticated) {
+                $('#loginModal').modal('show');
+            } else {
+                // Do nothing or provide a different action for authenticated users
+            }
+        }
+    </script>
+
+    

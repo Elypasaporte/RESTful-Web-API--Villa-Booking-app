@@ -29,6 +29,9 @@ namespace MagicVilla_Web.Controllers
             {
                 list = JsonConvert.DeserializeObject<List<VillaDTO>>(Convert.ToString(response.Result));
             }
+            
+           
+           
             return View(list);
         }
 
