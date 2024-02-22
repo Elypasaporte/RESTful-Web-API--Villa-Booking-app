@@ -9,11 +9,9 @@ namespace MagicVilla_VillaAPI.Models
         public int VillaNo { get; set; }
         [ForeignKey("Villa")]
         public int VillaID { get; set; }
-
-        public Villa Villa { get; set; }
+        public Villa Villa { get; set; } // Villa mapper using Entity Framework!!
         public string SpecialDetails{ get; set; }
         public DateTime  CreatedDate{ get; set; }
-        
         public DateTime UpdatedDate { get; set;}
     }
 }
